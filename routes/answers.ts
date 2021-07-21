@@ -5,7 +5,6 @@ const app = require('../app')
 module.exports = (app) => {
   app.post('/api/answer', (req, res, next) => {
     const values = [req.body.user_id, JSON.stringify(req.body.answers)];
-    console.log(values)
     db.query(`
       INSERT INTO answers(user_id, answers) 
       VALUES($1, $2)
