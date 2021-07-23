@@ -1,14 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
+var http = require('http');
 var bodyParser = require('body-parser');
 var app = express();
-var port = 3000;
+var port = process.env.Port || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
-app.listen(port, function () {
+app.set('port', port);
+var server = http.createServer(app);
+server.listen(port, function () {
     console.log("App running on port " + port + ".");
 });
 require('./routes/questions')(app);

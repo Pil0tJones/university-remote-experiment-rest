@@ -1,8 +1,10 @@
 export{};
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
+
 const app = express();
-const port = 3000;
+const port = process.env.Port || 3000;
 
 app.use(bodyParser.json())
 app.use(
@@ -10,7 +12,10 @@ app.use(
     extended: true,
   })
 )
-app.listen(port, () => {
+
+app.set('port', port);
+const server = http.createServer(app);
+server.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
 require('./routes/questions')(app)
